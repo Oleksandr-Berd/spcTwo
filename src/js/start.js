@@ -1,16 +1,12 @@
 const refs = {
   btnStart: document.querySelector('.btn-start'),
   contStart: document.querySelector('.cont-start'),
+  btnLevelFirstPicture: '',
 };
 
 refs.btnStart.textContent = 'Let`s go Guys!';
 
 refs.btnStart.addEventListener('click', renderSearchFormLevelFirst);
-
-refs.btnLevelFirstPicture.addEventListener(
-  'click',
-  renderSearchFormLevelSecond
-);
 
 function renderSearchFormLevelFirst() {
   const markUpSearchForm = `<div class="level-first">
@@ -19,21 +15,22 @@ function renderSearchFormLevelFirst() {
          </div>`;
 
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchForm);
-  const btnLevelFirstPicture = document.querySelector('#btnLvlFirstPct');
-
-  console.log(btnLevelFirstPicture);
 
   refs.btnStart.classList.replace('btn-start', 'btn-hidden');
-  return;
+  refs.btnLevelFirstPicture = document.querySelector('#btnLvlFirstPct');
+  console.log(refs.btnLevelFirstPicture);
+  refs.btnLevelFirstPicture.addEventListener(
+    'click',
+    renderSearchFormLevelSecond
+  );
 }
 
-function renderSearchFormLevelSecond() {
-  const markUpSearchForm = `<form class='search-form'id='search-form'>
+function renderSearchFormLevelSecond(evt) {
+  const markUpSearchFormFirst = `<form class='search-form'id='search-form'>
         <input class='form__input' type='query' autocomplete='off' placeholder='What do you want...?'/>
         <button type='submit'>Let's find out</button>
         </form>`;
 
-  refs.contStart.insertAdjacentHTML('beforeend', markUpSearchForm);
-
-  refs.btnStart.classList.replace('btn-start', 'btn-hidden');
+  refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormFirst);
+  console.log(evt);
 }
