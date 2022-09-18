@@ -21,6 +21,7 @@ function renderSearchFormLevelFirst() {
   const markUpSearchForm = `<div class="level-first">
   <button id="btnLvlFirstPct" class="btn__first" type='submit'>What picture are you looking for?</button>
          <button class="btn-movie__first" type='submit'>Let's watch some movie!</button>
+         <button class="btn-country" type='submit'>Maybe check some countries?</button>
          </div>`;
 
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchForm);
