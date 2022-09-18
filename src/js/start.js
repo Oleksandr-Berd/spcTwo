@@ -2,13 +2,12 @@ const refs = {
   btnStart: document.querySelector('.btn-start'),
   contStart: document.querySelector('.cont-start'),
   btnSocNet: document.querySelector('.btn__socNet'),
+  startList: document.querySelector('.start__list'),
   btnLevelFirstPicture: '',
   btnMovieFirst: '',
   conSocNet: '',
   btnSocNetBack: '',
 };
-
-console.log(refs.conSocNet);
 
 refs.btnStart.textContent = 'Let`s go Guys!';
 
@@ -26,8 +25,7 @@ function renderSearchFormLevelFirst() {
 
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchForm);
 
-  refs.btnStart.classList.replace('btn-start', 'btn-hidden');
-  refs.btnSocNet.classList.replace('btn__socNet', 'btn-hidden');
+  refs.startList.classList.replace('start__list', 'btn-hidden');
 
   refs.btnLevelFirstPicture = document.querySelector('#btnLvlFirstPct');
   refs.btnMovieFirst = document.querySelector('.btn-movie__first');
@@ -54,8 +52,7 @@ function discloseSocNet(evt) {
   refs.btnSocNetBack = document.querySelector('.btn-SocNet__backHidden');
 
   refs.conSocNet.classList.replace('soc-network__hidden', 'soc-network');
-  refs.btnStart.classList.replace('btn-start', 'btn-hidden');
-  refs.btnSocNet.classList.replace('btn__socNet', 'btn-hidden');
+  refs.startList.classList.replace('start__list', 'btn-hidden');
   refs.btnSocNetBack.classList.replace(
     'btn-SocNet__backHidden',
     'btn-SocNet__back'
@@ -65,10 +62,9 @@ function discloseSocNet(evt) {
 
 function backFromSocNet(evt) {
   refs.conSocNet.classList.replace('soc-network', 'soc-network__hidden');
-  refs.btnStart.classList.replace('btn-hidden', 'btn-start');
-  refs.btnSocNet.classList.replace('btn-hidden', 'btn__socNet');
   refs.btnSocNetBack.classList.replace(
     'btn-SocNet__back',
     'btn-SocNet__backHidden'
   );
+  refs.startList.classList.replace('btn-hidden', 'start__list');
 }
