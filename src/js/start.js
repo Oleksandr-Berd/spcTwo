@@ -58,4 +58,15 @@ function discloseSocNet(evt) {
     'btn-SocNet__backHidden',
     'btn-SocNet__back'
   );
+  refs.btnSocNetBack.addEventListener('click', backFromSocNet);
+}
+
+function backFromSocNet(evt) {
+  refs.conSocNet.classList.replace('soc-network', 'soc-network__hidden');
+  refs.btnStart.classList.replace('btn-hidden', 'btn-start');
+  refs.btnSocNet.classList.replace('btn-hidden', 'btn__socNet');
+  refs.btnSocNetBack.classList.replace(
+    'btn-SocNet__back',
+    'btn-SocNet__backHidden'
+  );
 }
