@@ -27,6 +27,8 @@ function renderSearchFormLevelFirst() {
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchForm);
 
   refs.btnStart.classList.replace('btn-start', 'btn-hidden');
+  refs.btnSocNet.classList.replace('btn__socNet', 'btn-hidden');
+
   refs.btnLevelFirstPicture = document.querySelector('#btnLvlFirstPct');
   refs.btnMovieFirst = document.querySelector('.btn-movie__first');
 
