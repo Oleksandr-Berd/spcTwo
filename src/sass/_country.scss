@@ -1,0 +1,27 @@
+
+.galleryCountry{
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+}
+
+.searchForm__country{
+    border-radius: 20px;
+    height: 50px;
+    box-shadow: 0 4px 8px 0 var(--bgc-backdrop-modal);
+}
+
+.country-name{
+    font-style: italic;
+    font-size: 40px;
+    font-family: fantasy;
+    font-weight: bold;
+}
+
+.country-card__item{
+    margin-top: 20px;
+}
+
+.btn-country__back{
+    margin-bottom: 10px;
+}
