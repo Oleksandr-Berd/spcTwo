@@ -10,6 +10,7 @@ const refs = {
   contStart: document.querySelector('.cont-start'),
   btnSocNet: document.querySelector('.btn__socNet'),
   startList: document.querySelector('.start__list'),
+  btnClock: document.querySelector('.btn__clock'),
   btnLevelFirstPicture: '',
   btnMovieFirst: '',
   conSocNet: '',
@@ -20,15 +21,21 @@ const refs = {
   galleryCountry: '',
   countryInfo: '',
   searchForm__country: '',
+  clock: '',
+  btnClockBack: '',
 };
 
 refs.btnStart.textContent = 'Let`s go Guys!';
 
 refs.btnSocNet.textContent = 'Wanna discover my Soc Net?';
 
+refs.btnClock.textContent = 'What time is it now?';
+
 refs.btnStart.addEventListener('click', renderSearchFormLevelFirst);
 
 refs.btnSocNet.addEventListener('click', discloseSocNet);
+
+refs.btnClock.addEventListener('click', disclosureClock);
 
 //.........first gallery
 
@@ -107,6 +114,40 @@ function disclosureCounries(evt) {
   refs.btnCountryBack.addEventListener('click', backFromCountries);
 }
 
+function disclosureClock(evt) {
+  const markUpCountryCLock = `<div class="clock-hidden">
+    <div class="hour"></div>
+    <div class="minute"></div>
+    <div class="second"></div>
+    <svg width="500" height="500 class="svg__clock">
+        <text class='text__clock' x="345" y="80">1</text>
+        <text class='text__clock' x="425" y="160">2</text>
+        <text class='text__clock' x="455" y="270">3</text>
+        <text class='text__clock' x="420" y="380">4</text>
+        <text class='text__clock' x="345" y="460">5</text>
+        <text class='text__clock' x="235" y="490">6</text>
+        <text class='text__clock' x="130" y="460">7</text>
+        <text class='text__clock' x="45" y="380">8</text>
+        <text class='text__clock' x="15" y="270">9</text>
+        <text class='text__clock' x="45" y="160">10</text>
+        <text class='text__clock' x="120" y="80">11</text>
+        <text class='text__clock' x="220" y="50">12</text>
+    </svg>
+    <button class='clock-back' type="button">Time is priceless</button>
+</div>`;
+
+  refs.contStart.insertAdjacentHTML('beforeend', markUpCountryCLock);
+
+  refs.clock = document.querySelector('.clock-hidden');
+  refs.btnClockBack = document.querySelector('.clock-back');
+
+  //   refs.conSocNet.classList.replace('clock-hidden', 'clock-hidden');
+  refs.startList.classList.replace('start__list', 'btn-hidden');
+  refs.clock.classList.replace('clock-hidden', 'clock');
+
+  //   refs.btnSocNetBack.addEventListener('click', backFromSocNet);
+}
+
 //..........................back
 
 function backFromSocNet(evt) {
@@ -123,7 +164,7 @@ function backFromCountries(evt) {
   refs.galleryCountry.classList.replace('galleryCountry', 'btn-hidden');
 }
 
-//....................render
+//....................render country
 
 function renderCountryCard(country) {
   if (country.length > 1 && country.length < 10) {
