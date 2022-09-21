@@ -116,9 +116,9 @@ function disclosureCounries(evt) {
 
 function disclosureClock(evt) {
   const markUpCountryCLock = `<div class="clock-hidden">
-    <div class="hour"></div>
-    <div class="minute"></div>
-    <div class="second"></div>
+    <div class="hand hour"></div>
+    <div class="hand minute"></div>
+    <div class="hand second"></div>
     <svg width="500" height="500" class="svg__clock">
         <text class='text__clock' x="345" y="100">1</text>
         <text class='text__clock' x="405" y="170">2</text>
@@ -145,7 +145,32 @@ function disclosureClock(evt) {
   refs.startList.classList.replace('start__list', 'btn-hidden');
   refs.clock.classList.replace('clock-hidden', 'clock');
 
-  //   refs.btnSocNetBack.addEventListener('click', backFromSocNet);
+  let hourHand = document.querySelector('.hour');
+  let minuteHand = document.querySelector('.minute');
+  let secondHand = document.querySelector('.second');
+
+  function rotateClock() {
+    const currentDate = new Date();
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    const seconds = currentDate.getSeconds();
+
+    const secondsFraction = seconds / 60;
+    const minutesFraction = (secondsFraction + minutes) / 60;
+    const hoursFraction = (minutesFraction + hours) / 12;
+
+    const secondsRotate = secondsFraction * 360;
+    const minutesRotate = minutesFraction * 360;
+    const hoursRotate = hoursFraction * 360;
+
+    secondHand.style.transform = `rotate(${secondsRotate}deg)`;
+    minuteHand.style.transform = `rotate(${minutesRotate}deg)`;
+    hourHand.style.transform = `rotate(${hoursRotate}deg)`;
+  }
+
+  setInterval(rotateClock, 1000);
+
+  refs.btnClockBack.addEventListener('click', backFromCLock);
 }
 
 //..........................back
@@ -162,6 +187,12 @@ function backFromSocNet(evt) {
 function backFromCountries(evt) {
   refs.lvlFirstGalley.classList.replace('btn-hidden', 'level-first');
   refs.galleryCountry.classList.replace('galleryCountry', 'btn-hidden');
+}
+
+function backFromCLock(evt) {
+  refs.clock.classList.replace('clock', 'clock-hidden');
+  refs.btnClockBack.classList.replace('clock-back', 'btn-hidden');
+  refs.startList.classList.replace('btn-hidden', 'start__list');
 }
 
 //....................render country
