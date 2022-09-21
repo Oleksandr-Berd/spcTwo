@@ -9,6 +9,15 @@
     background-size: cover;
     position: relative;
 
+    margin-top: 100px;
+    margin-bottom: 50px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
 }
 
 .clock-hidden {
@@ -31,14 +40,17 @@
 
 .svg__clock{
     position: absolute;
+    // transform: translate(-50%, -50%);
     z-index: 24;
     border-radius: 50%;
+    
 }
 
 .text__clock{
     font-size: 60px;
     font-family: 'Barlow', sans-serif;
-    fill: rgb(130, 157, 206)
+    fill: rgb(130, 157, 206);
+    
 }
 
 .hand{

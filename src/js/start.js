@@ -119,22 +119,22 @@ function disclosureClock(evt) {
     <div class="hour"></div>
     <div class="minute"></div>
     <div class="second"></div>
-    <svg width="500" height="500 class="svg__clock">
-        <text class='text__clock' x="345" y="80">1</text>
-        <text class='text__clock' x="425" y="160">2</text>
-        <text class='text__clock' x="455" y="270">3</text>
-        <text class='text__clock' x="420" y="380">4</text>
-        <text class='text__clock' x="345" y="460">5</text>
-        <text class='text__clock' x="235" y="490">6</text>
-        <text class='text__clock' x="130" y="460">7</text>
-        <text class='text__clock' x="45" y="380">8</text>
-        <text class='text__clock' x="15" y="270">9</text>
-        <text class='text__clock' x="45" y="160">10</text>
-        <text class='text__clock' x="120" y="80">11</text>
-        <text class='text__clock' x="220" y="50">12</text>
+    <svg width="500" height="500" class="svg__clock">
+        <text class='text__clock' x="345" y="100">1</text>
+        <text class='text__clock' x="405" y="170">2</text>
+        <text class='text__clock' x="435" y="270">3</text>
+        <text class='text__clock' x="400" y="365">4</text>
+        <text class='text__clock' x="340" y="440">5</text>
+        <text class='text__clock' x="235" y="470">6</text>
+        <text class='text__clock' x="140" y="445">7</text>
+        <text class='text__clock' x="65" y="375">8</text>
+        <text class='text__clock' x="35" y="270">9</text>
+        <text class='text__clock' x="55" y="170">10</text>
+        <text class='text__clock' x="135" y="95">11</text>
+        <text class='text__clock' x="220" y="75">12</text>
     </svg>
-    <button class='clock-back' type="button">Time is priceless</button>
-</div>`;
+</div>
+<button class='clock-back' type="button">Time is priceless</button>`;
 
   refs.contStart.insertAdjacentHTML('beforeend', markUpCountryCLock);
 
