@@ -1,0 +1,16 @@
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 10px;
+}
+
+.form__input{
+    border-radius: 20px;
+    height: 50px;
+    box-shadow: 0 4px 8px 0 var(--bgc-backdrop-modal);
+    text-align: center;
+   
+}

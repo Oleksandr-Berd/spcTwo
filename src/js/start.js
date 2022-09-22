@@ -6,16 +6,16 @@ import API__country from './getCountry';
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
-  btnStart: document.querySelector('.btn-start'),
+  btnImage: document.querySelector('.btn__image'),
   contStart: document.querySelector('.cont-start'),
   btnSocNet: document.querySelector('.btn__socNet'),
   startList: document.querySelector('.start__list'),
   btnClock: document.querySelector('.btn__clock'),
   btnLevelFirstPicture: '',
-  btnMovieFirst: '',
+  btnMovie: document.querySelector('.btn__movie'),
   conSocNet: '',
   btnSocNetBack: '',
-  btnCountry: '',
+  btnCountry: document.querySelector('.btn__country'),
   lvlFirstGalley: '',
   btnCountryBack: '',
   galleryCountry: '',
@@ -25,54 +25,19 @@ const refs = {
   btnClockBack: '',
 };
 
-refs.btnStart.textContent = 'Let`s go Guys!';
-
 refs.btnSocNet.textContent = 'Wanna discover my Soc Net?';
-
 refs.btnClock.textContent = 'What time is it now?';
+refs.btnImage.textContent = 'What image are you looking for?';
+refs.btnCountry.textContent = 'Maybe check some countries?';
+refs.btnMovie.textContent = 'Let`s watch some movie!';
 
-refs.btnStart.addEventListener('click', renderSearchFormLevelFirst);
-
+// refs.btnImage.addEventListener('click', renderSearchFormLevelFirst);
+refs.btnCountry.addEventListener('click', disclosureCounries);
 refs.btnSocNet.addEventListener('click', discloseSocNet);
-
 refs.btnClock.addEventListener('click', disclosureClock);
+refs.btnImage.addEventListener('click', renderImages);
 
-//.........first gallery
-
-function renderSearchFormLevelFirst() {
-  const markUpSearchForm = `<div class="level-first">
-  <button id="btnLvlFirstPct" class="btn__first" type='submit'>What picture are you looking for?</button>
-         <button class="btn-movie__first" type='submit'>Let's watch some movie!</button>
-         <button class="btn-country" type='submit'>Maybe check some countries?</button>
-         </div>`;
-
-  refs.contStart.insertAdjacentHTML('beforeend', markUpSearchForm);
-
-  refs.startList.classList.replace('start__list', 'btn-hidden');
-
-  refs.btnLevelFirstPicture = document.querySelector('#btnLvlFirstPct');
-  refs.btnMovieFirst = document.querySelector('.btn-movie__first');
-  refs.btnCountry = document.querySelector('.btn-country');
-
-  refs.btnLevelFirstPicture.addEventListener(
-    'click',
-    renderSearchFormLevelSecond
-  );
-  refs.btnCountry.addEventListener('click', disclosureCounries);
-}
-
-function renderSearchFormLevelSecond(evt) {
-  const markUpSearchFormFirst = `<form class='search-form'id='search-form'>
-        <input class='form__input' type='query' autocomplete='off' placeholder='What do you want...?'/>
-        <button type='submit'>Let's find out</button>
-        </form>`;
-
-  refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormFirst);
-  refs.btnLevelFirstPicture.classList.replace('btn__first', 'btn-hidden');
-  refs.btnMovieFirst.classList.replace('btn-movie__first', 'btn-hidden');
-}
-
-//..................disclosure
+//..................disclosure soc-net
 
 function discloseSocNet(evt) {
   refs.conSocNet = document.querySelector('.soc-network__hidden');
@@ -87,6 +52,8 @@ function discloseSocNet(evt) {
   refs.btnSocNetBack.addEventListener('click', backFromSocNet);
 }
 
+//....................... dislosure countries
+
 function disclosureCounries(evt) {
   const markUpCountryGallery = `<div class="galleryCountry">
     <input type="text" class="searchForm__country" id="search-box" placeholder='What are you searching for?'/>
@@ -95,24 +62,23 @@ function disclosureCounries(evt) {
     <button class="btn-country__back" type="button">And again return to te beginning!</button>
     </div>`;
 
-  refs.lvlFirstGalley = document.querySelector('.level-first');
-
-  refs.lvlFirstGalley.classList.replace('level-first', 'btn-hidden');
-
   refs.contStart.insertAdjacentHTML('beforeend', markUpCountryGallery);
 
   refs.btnCountryBack = document.querySelector('.btn-country__back');
   refs.galleryCountry = document.querySelector('.galleryCountry');
-
   refs.countryInfo = document.querySelector('.country-info');
   refs.searchForm__country = document.querySelector('.searchForm__country');
+
+  refs.startList.classList.replace('start__list', 'btn-hidden');
+
   refs.searchForm__country.addEventListener(
     'input',
     debounce(onSearchCountry, DEBOUNCE_DELAY)
   );
-
   refs.btnCountryBack.addEventListener('click', backFromCountries);
 }
+
+// ......................disclosure clock
 
 function disclosureClock(evt) {
   const markUpCountryCLock = `<div class="clock-hidden">
@@ -141,7 +107,6 @@ function disclosureClock(evt) {
   refs.clock = document.querySelector('.clock-hidden');
   refs.btnClockBack = document.querySelector('.clock-back');
 
-  //   refs.conSocNet.classList.replace('clock-hidden', 'clock-hidden');
   refs.startList.classList.replace('start__list', 'btn-hidden');
   refs.clock.classList.replace('clock-hidden', 'clock');
 
@@ -173,6 +138,19 @@ function disclosureClock(evt) {
   refs.btnClockBack.addEventListener('click', backFromCLock);
 }
 
+// ...................disclosure images
+
+function renderImages(evt) {
+  const markUpSearchFormFirst = `<form class='search-form'id='search-form'>
+        <input class='form__input' type='query' autocomplete='off' placeholder='What do you want...?'/>
+        <button type='submit'>Let's find out</button>
+        </form>`;
+
+  refs.startList.classList.replace('start__list', 'btn-hidden');
+
+  refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormFirst);
+}
+
 //..........................back
 
 function backFromSocNet(evt) {
@@ -185,7 +163,7 @@ function backFromSocNet(evt) {
 }
 
 function backFromCountries(evt) {
-  refs.lvlFirstGalley.classList.replace('btn-hidden', 'level-first');
+  refs.startList.classList.replace('btn-hidden', 'start__list');
   refs.galleryCountry.classList.replace('galleryCountry', 'btn-hidden');
 }
 
@@ -235,6 +213,7 @@ function renderCountryCard(country) {
       })
       .join('');
 
+    refs.countryInfo.innerHTML = '';
     refs.countryInfo.insertAdjacentHTML('afterbegin', markUpCountryCard);
   }
   if (country.length >= 10) {
