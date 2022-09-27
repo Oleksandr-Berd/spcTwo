@@ -23,6 +23,7 @@ const refs = {
   searchForm__country: '',
   clock: '',
   btnClockBack: '',
+  searchForm: '',
 };
 
 refs.btnSocNet.textContent = 'Wanna discover my Soc Net?';
@@ -147,8 +148,9 @@ function renderImages(evt) {
         </form>`;
 
   refs.startList.classList.replace('start__list', 'btn-hidden');
-
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormFirst);
+
+  refs.searchForm = document.querySelector('.search-form');
 }
 
 //..........................back
