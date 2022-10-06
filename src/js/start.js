@@ -5,6 +5,8 @@ import API__country from './getCountry';
 
 import NewsApiService from './news-service';
 
+import articlesTpl from '../hbs/articles.hbs';
+
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
@@ -27,6 +29,7 @@ const refs = {
   btnClockBack: '',
   searchForm: '',
   submitImage: '',
+  articlesContainer: '',
 };
 
 const newsApiService = new NewsApiService();
@@ -158,6 +161,7 @@ function renderImages(evt) {
 
   refs.searchForm = document.querySelector('.search-form');
   refs.submitImage = document.querySelector('.btn-submit');
+  refs.articlesContainer = document.querySelector('.js-articles-container');
 
   refs.searchForm.addEventListener('submit', onsearchImage);
 }
@@ -169,7 +173,12 @@ function onsearchImage(e) {
 
   newsApiService.resetPage();
 
-  newsApiService.fetchArticles();
+  newsApiService.fetchArticles().then(appendArticlesMarkup);
+  refs.submitImage.classList.replace('btn-submit', 'btn-hidden');
+}
+
+function appendArticlesMarkup(articles) {
+  refs.articlesContainer.insertAdjacentHTML('beforeend', articlesTpl(articles));
 }
 
 //..........................back

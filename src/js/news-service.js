@@ -13,11 +13,12 @@ export default class NewsApiService {
     };
     const url = `https://newsapi.org/v2/everything?q=${this.searchQuery}&language=en&pageSize=5&page=${this.page}`;
 
-    fetch(url, options)
+    return fetch(url, options)
       .then(r => r.json())
       .then(data => {
         this.incrementPage();
-        console.log('after', this);
+
+        return data.articles;
       });
   }
 
