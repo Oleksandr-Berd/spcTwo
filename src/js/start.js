@@ -3,6 +3,8 @@ import Notiflix from 'notiflix';
 
 import API__country from './getCountry';
 
+import NewsApiService from './news-service';
+
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
@@ -24,7 +26,10 @@ const refs = {
   clock: '',
   btnClockBack: '',
   searchForm: '',
+  submitImage: '',
 };
+
+const newsApiService = new NewsApiService();
 
 refs.btnSocNet.textContent = 'Wanna discover my Soc Net?';
 refs.btnClock.textContent = 'What time is it now?';
@@ -143,14 +148,28 @@ function disclosureClock(evt) {
 
 function renderImages(evt) {
   const markUpSearchFormFirst = `<form class='search-form'id='search-form'>
-        <input class='form__input' type='query' autocomplete='off' placeholder='What do you want...?'/>
-        <button type='submit'>Let's find out</button>
-        </form>`;
+        <input class='form__input' type='text' name='query' autocomplete='off' placeholder='What do you want...?'/>
+        <button type='submit' class='btn-submit'>Let's find out</button>
+        </form>
+        <ul class='articles js-articles-container'></ul>`;
 
   refs.startList.classList.replace('start__list', 'btn-hidden');
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormFirst);
 
   refs.searchForm = document.querySelector('.search-form');
+  refs.submitImage = document.querySelector('.btn-submit');
+
+  refs.searchForm.addEventListener('submit', onsearchImage);
+}
+
+function onsearchImage(e) {
+  e.preventDefault();
+
+  newsApiService.query = e.currentTarget.elements.query.value;
+
+  newsApiService.resetPage();
+
+  newsApiService.fetchArticles();
 }
 
 //..........................back
