@@ -169,8 +169,12 @@ function renderImages(evt) {
 function onsearchImage(e) {
   e.preventDefault();
 
+  clearArticlesContainer();
   newsApiService.query = e.currentTarget.elements.query.value;
 
+  if (newsApiService.query === '') {
+    return Notiflix.Notify.warning('You have to ask something!');
+  }
   newsApiService.resetPage();
 
   newsApiService.fetchArticles().then(appendArticlesMarkup);
@@ -179,6 +183,10 @@ function onsearchImage(e) {
 
 function appendArticlesMarkup(articles) {
   refs.articlesContainer.insertAdjacentHTML('beforeend', articlesTpl(articles));
+}
+
+function clearArticlesContainer() {
+  refs.articlesContainer.innerHTML = '';
 }
 
 //..........................back
