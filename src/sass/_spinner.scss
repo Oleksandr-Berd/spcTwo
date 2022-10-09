@@ -1,0 +1,50 @@
+.wrapper{
+    width: 100%;
+    align-content: center;
+    margin-top: 20%;
+}
+
+.loader{
+    margin: auto;
+    border: 20px solid #6949615e;
+    border-radius: 50%;
+    border-top: 20px solid #ff2b47;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+@-webkit-keyframes spin{
+    0% {
+    -webkit-transform: rotate(0deg);
+    }
+          30% {
+              -webkit-transform: rotate(200deg);
+          }
+                   100% {
+                       -webkit-transform: rotate(360deg);
+                   }
+   
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    30% {
+        -webkit-transform: rotate(200deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.spinner-loading{
+    margin: 50px 0 0 15px;
+    font-size: 3vw;
+    color: #2e222b;
+    letter-spacing: 5px;
+}

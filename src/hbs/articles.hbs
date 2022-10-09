@@ -1,11 +1,11 @@
 {{#each this}}
 <li>
     <a href="{{url}}" target ='_blank' rel = 'noopener noreferrer'>
-        <article>
+        <article class="articles">
             <img src="{{urlToImage}}" alt="" width="480">
-            <h2>{{title}}</h2>
-            <p>Posted by: {{author}}</p>
-            <p>{{description}}</p>
+            <h2 class='articles-title'>{{title}}</h2>
+            <p class="articles-text">Posted by: {{author}}</p>
+            <p class="articles-description">{{description}}</p>
         </article>
     </a>
 </li>

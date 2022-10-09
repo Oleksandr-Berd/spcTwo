@@ -10,8 +10,10 @@ import articlesTpl from '../hbs/articles.hbs';
 
 const DEBOUNCE_DELAY = 300;
 
+const newsApiService = new NewsApiService();
+
 const refs = {
-  btnImage: document.querySelector('.btn__image'),
+  btnImage: document.querySelector('.btn__article'),
   contStart: document.querySelector('.cont-start'),
   btnSocNet: document.querySelector('.btn__socNet'),
   startList: document.querySelector('.start__list'),
@@ -34,19 +36,16 @@ const refs = {
   sentinel: '',
 };
 
-const newsApiService = new NewsApiService();
-
 refs.btnSocNet.textContent = 'Wanna discover my Soc Net?';
 refs.btnClock.textContent = 'What time is it now?';
-refs.btnImage.textContent = 'What image are you looking for?';
+refs.btnImage.textContent = 'Do you wanna read smth?';
 refs.btnCountry.textContent = 'Maybe check some countries?';
-refs.btnMovie.textContent = 'Let`s watch some movie!';
+refs.btnMovie.textContent = 'Let`s create the gallery!';
 
-// refs.btnImage.addEventListener('click', renderSearchFormLevelFirst);
 refs.btnCountry.addEventListener('click', disclosureCounries);
 refs.btnSocNet.addEventListener('click', discloseSocNet);
 refs.btnClock.addEventListener('click', disclosureClock);
-refs.btnImage.addEventListener('click', renderImages);
+refs.btnImage.addEventListener('click', renderArticles);
 
 //..................disclosure soc-net
 
@@ -61,6 +60,15 @@ function discloseSocNet(evt) {
     'btn-SocNet__back'
   );
   refs.btnSocNetBack.addEventListener('click', backFromSocNet);
+}
+
+function backFromSocNet(evt) {
+  refs.conSocNet.classList.replace('soc-network', 'soc-network__hidden');
+  refs.btnSocNetBack.classList.replace(
+    'btn-SocNet__back',
+    'btn-SocNet__backHidden'
+  );
+  refs.startList.classList.replace('btn-hidden', 'start__list');
 }
 
 //....................... dislosure countries
@@ -149,12 +157,12 @@ function disclosureClock(evt) {
   refs.btnClockBack.addEventListener('click', backFromCLock);
 }
 
-// ...................disclosure images
+// ...................disclosure articles
 
-function renderImages(evt) {
+function renderArticles(evt) {
   const markUpSearchFormFirst = `<form class='search-form'id='search-form'>
         <input class='form__input' type='text' name='query' autocomplete='off' placeholder='What do you want...?'/>
-        <button type='submit' class='btn-submit'>Let's find out</button>
+        <button type='submit' class='btn-submit'>Choose your topic!</button>
         </form>
         <ul class='articles js-articles-container'></ul>
         <div class="sentinel"></div>`;
@@ -167,7 +175,7 @@ function renderImages(evt) {
   refs.articlesContainer = document.querySelector('.js-articles-container');
   refs.sentinel = document.querySelector('.sentinel');
 
-  refs.searchForm.addEventListener('submit', onsearchImage);
+  refs.searchForm.addEventListener('submit', onsearchArticles);
 
   const onEntry = entries => {
     entries.forEach(entry => {
@@ -186,7 +194,7 @@ function renderImages(evt) {
   observer.observe(refs.sentinel);
 }
 
-function onsearchImage(e) {
+function onsearchArticles(e) {
   e.preventDefault();
 
   clearArticlesContainer();
@@ -210,15 +218,6 @@ function clearArticlesContainer() {
 }
 
 //..........................back
-
-function backFromSocNet(evt) {
-  refs.conSocNet.classList.replace('soc-network', 'soc-network__hidden');
-  refs.btnSocNetBack.classList.replace(
-    'btn-SocNet__back',
-    'btn-SocNet__backHidden'
-  );
-  refs.startList.classList.replace('btn-hidden', 'start__list');
-}
 
 function backFromCountries(evt) {
   refs.startList.classList.replace('btn-hidden', 'start__list');
