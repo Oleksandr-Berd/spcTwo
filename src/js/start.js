@@ -1,5 +1,6 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
+// import InfiniteScroll from 'infinite-scroll';
 
 import API__country from './getCountry';
 
@@ -30,6 +31,7 @@ const refs = {
   searchForm: '',
   submitImage: '',
   articlesContainer: '',
+  sentinel: '',
 };
 
 const newsApiService = new NewsApiService();
@@ -154,7 +156,8 @@ function renderImages(evt) {
         <input class='form__input' type='text' name='query' autocomplete='off' placeholder='What do you want...?'/>
         <button type='submit' class='btn-submit'>Let's find out</button>
         </form>
-        <ul class='articles js-articles-container'></ul>`;
+        <ul class='articles js-articles-container'></ul>
+        <div class="sentinel"></div>`;
 
   refs.startList.classList.replace('start__list', 'btn-hidden');
   refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormFirst);
@@ -162,8 +165,25 @@ function renderImages(evt) {
   refs.searchForm = document.querySelector('.search-form');
   refs.submitImage = document.querySelector('.btn-submit');
   refs.articlesContainer = document.querySelector('.js-articles-container');
+  refs.sentinel = document.querySelector('.sentinel');
 
   refs.searchForm.addEventListener('submit', onsearchImage);
+
+  const onEntry = entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        refs.articlesContainer.innerHTML = '';
+        newsApiService.fetchArticles().then(appendArticlesMarkup);
+      }
+    });
+  };
+  const options = {
+    rootMargin: '150px',
+  };
+
+  const observer = new IntersectionObserver(onEntry, options);
+
+  observer.observe(refs.sentinel);
 }
 
 function onsearchImage(e) {
