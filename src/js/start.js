@@ -1,16 +1,17 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 // import InfiniteScroll from 'infinite-scroll';
-
+import SimpleLightbox from 'simplelightbox';
 import API__country from './getCountry';
-
 import NewsApiService from './news-service';
-
 import articlesTpl from '../hbs/articles.hbs';
+import ApiGallery from './get-gallery';
+import imagesTpl from '../hbs/images.hbs';
 
 const DEBOUNCE_DELAY = 300;
 
 const newsApiService = new NewsApiService();
+const apiGallery = new ApiGallery();
 
 const refs = {
   btnImage: document.querySelector('.btn__article'),
@@ -19,7 +20,7 @@ const refs = {
   startList: document.querySelector('.start__list'),
   btnClock: document.querySelector('.btn__clock'),
   btnLevelFirstPicture: '',
-  btnMovie: document.querySelector('.btn__movie'),
+  btnGallery: document.querySelector('.btn__gallery'),
   conSocNet: '',
   btnSocNetBack: '',
   btnCountry: document.querySelector('.btn__country'),
@@ -34,18 +35,23 @@ const refs = {
   submitImage: '',
   articlesContainer: '',
   sentinel: '',
+  searchFormGallery: '',
+  submitGallery: '',
+  articlesContainerGallery: '',
+  sentinelGallery: '',
 };
 
 refs.btnSocNet.textContent = 'Wanna discover my Soc Net?';
 refs.btnClock.textContent = 'What time is it now?';
 refs.btnImage.textContent = 'Do you wanna read smth?';
 refs.btnCountry.textContent = 'Maybe check some countries?';
-refs.btnMovie.textContent = 'Let`s create the gallery!';
+refs.btnGallery.textContent = 'Let`s create the gallery!';
 
 refs.btnCountry.addEventListener('click', disclosureCounries);
 refs.btnSocNet.addEventListener('click', discloseSocNet);
 refs.btnClock.addEventListener('click', disclosureClock);
 refs.btnImage.addEventListener('click', renderArticles);
+refs.btnGallery.addEventListener('click', renderGallery);
 
 //..................disclosure soc-net
 
@@ -215,6 +221,72 @@ function appendArticlesMarkup(articles) {
 
 function clearArticlesContainer() {
   refs.articlesContainer.innerHTML = '';
+}
+
+//.........................gallery
+
+function renderGallery(evt) {
+  const markUpSearchFormGallery = `<form class='search-form__gallery'id='search-form__gallery'>
+        <input class='form-gallery__input' type='text' name='query_gallery' autocomplete='off' placeholder='What are you looking for...?'/>
+        <button type='submit' class='btn-submit__gallery'>Let's look on!</button>
+        </form>
+        <ul class='images js-images-container'></ul>
+        <div class="sentinel__gallery"></div>`;
+
+  refs.startList.classList.replace('start__list', 'btn-hidden');
+  refs.contStart.insertAdjacentHTML('beforeend', markUpSearchFormGallery);
+
+  refs.searchFormGallery = document.querySelector('.search-form__gallery');
+  refs.submitGallery = document.querySelector('.btn-submit__gallery');
+  refs.articlesContainerGallery = document.querySelector(
+    '.js-images-container'
+  );
+  refs.sentinelGallery = document.querySelector('.sentinel__gallery');
+
+  refs.searchFormGallery.addEventListener('submit', onsearchImages);
+
+  const onEntryImages = images => {
+    images.forEach(image => {
+      if (image.isIntersecting) {
+        refs.articlesContainerGallery.innerHTML = '';
+        apiGallery.fetchArticles().then(appendGalleryMarkup);
+      }
+    });
+  };
+  const options = {
+    rootMargin: '150px',
+  };
+
+  const observer__images = new IntersectionObserver(onEntryImages, options);
+
+  observer__images.observe(refs.sentinelGallery);
+}
+function onsearchImages(e) {
+  e.preventDefault();
+
+  clearImagesContainer();
+  apiGallery.query_gallery = e.currentTarget.elements.query_gallery.value;
+
+  console.log(apiGallery.query_gallery);
+
+  if (apiGallery.query_gallery === '') {
+    return Notiflix.Notify.warning('You have to ask something!');
+  }
+  apiGallery.resetPage();
+
+  apiGallery.fetchArticles().then(appendGalleryMarkup);
+  refs.submitGallery.classList.replace('btn-submit__gallery', 'btn-hidden');
+}
+
+function appendGalleryMarkup(images) {
+  refs.articlesContainerGallery.insertAdjacentHTML(
+    'beforeend',
+    imagesTpl(images)
+  );
+}
+
+function clearImagesContainer() {
+  refs.articlesContainerGallery.innerHTML = '';
 }
 
 //..........................back
